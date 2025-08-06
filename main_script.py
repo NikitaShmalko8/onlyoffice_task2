@@ -5,6 +5,7 @@ from selenium.webdriver.firefox.options import Options
 from locators import ProjectLocators
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from webdriver_manager.firefox import GeckoDriverManager
 import csv
 
 # 1. В данной функции мы проверяем, есть ли каждое поле в каждой компании(например, у Сингапура нет 'postcode'). Если поля нет, то записываем ''
@@ -17,7 +18,7 @@ def get_text(office, locator):
 def parse_contacts(output_file_path):
     if not output_file_path.lower().endswith('.csv'):
         raise ValueError("Неверный формат файла. Ожидается .csv")
-    service = Service(executable_path="C:/Tools_firefox/geckodriver.exe")
+    service = Service(GeckoDriverManager().install())
     options = Options()
     driver = webdriver.Firefox(service=service, options=options)
     wait = WebDriverWait(driver, 10)
