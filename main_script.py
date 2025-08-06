@@ -24,6 +24,13 @@ def parse_contacts(output_file_path):
         raise ValueError("Неверный формат файла. Ожидается .csv")
     service = Service(GeckoDriverManager().install())
     options = Options()
+    arguments = ["--window-size=1920,1080",
+                 "--disable-extensions",
+                 "--disable-dev-shm-usage",
+                 "--no-sandbox",
+                 "--ignore-certificate-errors"]
+    for arg in arguments:
+        options.add_argument(arg)
     driver = webdriver.Firefox(service=service, options=options)
     wait = WebDriverWait(driver, 10)
 
