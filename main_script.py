@@ -6,7 +6,11 @@ from locators import ProjectLocators
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from webdriver_manager.firefox import GeckoDriverManager
+from pyvirtualdisplay import Display
 import csv
+
+display = Display(visible=False, size=(1920, 1080))
+display.start()
 
 # 1. В данной функции мы проверяем, есть ли каждое поле в каждой компании(например, у Сингапура нет 'postcode'). Если поля нет, то записываем ''
 def get_text(office, locator):
