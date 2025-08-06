@@ -15,6 +15,8 @@ def get_text(office, locator):
         return ''
 
 def parse_contacts(output_file_path):
+    if not output_file_path.lower().endswith('.csv'):
+        raise ValueError("Неверный формат файла. Ожидается .csv")
     service = Service(executable_path="C:/Tools_firefox/geckodriver.exe")
     options = Options()
     driver = webdriver.Firefox(service=service, options=options)

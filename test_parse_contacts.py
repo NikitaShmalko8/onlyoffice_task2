@@ -12,3 +12,7 @@ def test_invalid_file_path():
     with pytest.raises(Exception):
         parse_contacts(invalid_path)
 
+def test_invalid_file_format(tmp_path):
+    wrong_file = tmp_path / "output.txt"
+    with pytest.raises(ValueError, match="Неверный формат файла"):
+        parse_contacts(str(wrong_file))
