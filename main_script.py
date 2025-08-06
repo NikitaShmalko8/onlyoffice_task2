@@ -78,4 +78,3 @@ def parse_contacts(output_file_path):
     finally:
         driver.quit()
 
-parse_contacts('contacts.csv')
