@@ -6,11 +6,8 @@ from locators import ProjectLocators
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from webdriver_manager.firefox import GeckoDriverManager
-from pyvirtualdisplay import Display
 import csv
 
-display = Display(visible=True, size=(1920, 1080))
-display.start()
 
 def get_text(office, locator):
     try:
@@ -21,12 +18,10 @@ def get_text(office, locator):
 def parse_contacts(output_file_path):
     if not output_file_path.lower().endswith('.csv'):
         raise ValueError("Неверный формат файла. Ожидается .csv")
-    service = Service(GeckoDriverManager().install())
     options = Options()
-    arguments = ["--window-size=1920,1080",
-                 "--ignore-certificate-errors"]
-    for arg in arguments:
-        options.add_argument(arg)
+    options.add_argument("--window-size=1920,1080")
+
+    service = Service(GeckoDriverManager().install())
     driver = webdriver.Firefox(service=service, options=options)
     wait = WebDriverWait(driver, 10)
 
