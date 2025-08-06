@@ -35,4 +35,4 @@ jobs:
 
     - name: Run tests
       run: |
-        xvfb-run -a pytest test_parse_contacts.py
+        pytest test_parse_contacts.py

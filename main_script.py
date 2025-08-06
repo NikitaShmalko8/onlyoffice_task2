@@ -7,6 +7,9 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from webdriver_manager.firefox import GeckoDriverManager
 import csv
+from pyvirtualdisplay import Display
+
+
 
 
 def get_text(office, locator):
@@ -16,6 +19,8 @@ def get_text(office, locator):
         return ''
 
 def parse_contacts(output_file_path):
+    display = Display(visible=0, size=(1920, 1080))
+    display.start()
     if not output_file_path.lower().endswith('.csv'):
         raise ValueError("Неверный формат файла. Ожидается .csv")
     options = Options()
@@ -60,4 +65,7 @@ def parse_contacts(output_file_path):
 
     finally:
         driver.quit()
+        display.stop()
 
+if __name__ == "__main__":
+    parse_contacts('contacts.csv')
