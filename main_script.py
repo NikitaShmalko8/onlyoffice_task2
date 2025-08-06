@@ -32,14 +32,14 @@ def parse_contacts(output_file_path):
         contacts_link = wait.until(EC.element_to_be_clickable(ProjectLocators.CONTACTS_LINKS))
         contacts_link.click()
 
-        # 5. Ждем прогрузку карточек об компаниях
+        # 5. Ждем загрузку карточек компаний
         wait.until(EC.presence_of_all_elements_located(ProjectLocators.CONTACTS_INFORMATION))
         office_blocks = driver.find_elements(*ProjectLocators.CONTACTS_INFORMATION)
 
         # 6. Создаем список, в который записываем информацию о каждой компании
         parsed_data = []
 
-        # 7. В данном цикле мы вызываем функцию get_text, проверяем наличия поял и записываем в список parsed_data
+        # 7. В данном цикле мы вызываем функцию get_text, проверяем наличия поля и записываем в список parsed_data
         for office in office_blocks:
             country = get_text(office, ProjectLocators.REGION_INFORMATION)
             company_name = get_text(office, ProjectLocators.COMPANIES_NAMES)
