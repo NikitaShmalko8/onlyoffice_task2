@@ -9,9 +9,6 @@ from webdriver_manager.firefox import GeckoDriverManager
 import csv
 from pyvirtualdisplay import Display
 
-
-
-
 def get_text(office, locator):
     try:
         return office.find_element(*locator).text.strip()
@@ -19,14 +16,20 @@ def get_text(office, locator):
         return ''
 
 def parse_contacts(output_file_path):
-    display = Display(visible=0, size=(1920, 1080))
+    display = Display(visible=False, size=(1920, 1080))
     display.start()
     if not output_file_path.lower().endswith('.csv'):
         raise ValueError("Неверный формат файла. Ожидается .csv")
     options = Options()
-    options.add_argument("--window-size=1920,1080")
+    arguments = ["--window-size=1920,1080",
+                 "--disable-extensions",
+                 "--disable-dev-shm-usage",
+                 "--no-sandbox",
+                 "--ignore-certificate-errors"]
+    for arg in arguments:
+        options.add_argument(arg)
 
-    service = Service(GeckoDriverManager().install())
+    service = Service(executable_path='/usr/local/bin/geckodriver')
     driver = webdriver.Firefox(service=service, options=options)
     wait = WebDriverWait(driver, 10)
 
